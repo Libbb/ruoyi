@@ -75,7 +75,7 @@ mybatis:
     # 搜索指定包别名
     typeAliasesPackage: com.ruoyi.**.domain
     # 配置mapper的扫描，找到所有的mapper.xml映射文件
-    mapperLocations: classpath*:mapper/**/*Mapper.xml
+    mapperLocations: classpath*:mapper/**/*.xml
     # 加载全局的配置文件
     configLocation: classpath:mybatis/mybatis-config.xml
 
@@ -116,7 +116,7 @@ shiro:
     # 相隔多久检查一次session的有效性，默认就是10分钟
     validationInterval: 10
     # 同一个用户最大会话数，比如2的意思是同一个账号允许最多同时两个人登录（默认-1不限制）
-    maxSession: -1
+    maxSession: 2
     # 踢出之前登录的/之后登录的用户，默认踢出之前登录的用户
     kickoutAfter: false
 

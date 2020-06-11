@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.VehicleDao">
+    <resultMap type="com.ruoyi.system.domain.Vehicle" id="VehicleMap">
+        <id property="id" column="vehicle_id"/>
+        <result property="vehicleNum" column="vehicle_num"/>
+        <result property="vehicleModel" column="vehicle_model"/>
+        <!--        <result property="vehicleNumType"   column="vehicle_num_type"   />-->
+        <result property="vehiclePrice" column="vehicle_price"/>
+        <result property="vehicleLabel" column="vehicle_label"/>
+        <result property="vehicleReserve" column="vehicle_reserve"/>
+        <result property="vehicleCash" column="vehicle_cash"/>
+        <result property="vehicleOverdue" column="vehicle_overdue"/>
+        <result property="vehicleState" column="vehicle_state"/>
+        <result property="vehiclePhoto" column="vehicle_photo"/>
+        <result property="vehicleVin" column="vehicle_vin"/>
+        <result property="vehicleEngine" column="vehicle_engine"/>
+
+        <association property="vehicleNumType" javaType="com.ruoyi.system.domain.Type">
+            <id column="type_id" property="id"/>
+            <result column="type_name" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAll" resultMap="VehicleMap">
+        select * from vehicle as v LEFT JOIN `type` as t on v.vehicle_num_type=t.type_id
+        <where>
+            <if test="vehicleNum != null and vehicleNum != ''">
+			    AND v.vehicle_num like concat('%', #{vehicleNum}, '%')
+		    </if>
+		     <if test="vehicleModel != null and vehicleModel != ''">
+			    AND v.vehicle_model like concat('%', #{vehicleModel}, '%')
+		    </if>
+		     <if test="vehicleNumType != null and vehicleNumType != ''">
+			    AND v.vehicle_num_type =#{vehicleNumType.id}
+		    </if>
+        </where>
+    </select>
+</mapper>
