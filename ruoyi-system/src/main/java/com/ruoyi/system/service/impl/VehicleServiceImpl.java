@@ -23,6 +23,28 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @DataScope(deptAlias = "d", userAlias = "u")
     public List<Vehicle> selectAll(Vehicle vehicle) {
-        return dao.selectAll();
+        return dao.selectAll(vehicle);
     }
+
+    @Override
+    public int vehicelAdd(Vehicle vehicle) {
+        return dao.vehicelAdd(vehicle);
+    }
+
+    @Override
+    public int vehicleUpdate(Vehicle vehicle) {
+        return dao.vehicleUpdate(vehicle);
+    }
+
+    @Override
+    public Vehicle selectById(int id) {
+        return dao.selectById(id);
+    }
+
+    @Override
+    public int vahicleDelete(int id) {
+        return dao.vahicleDelete(id);
+    }
+
+
 }

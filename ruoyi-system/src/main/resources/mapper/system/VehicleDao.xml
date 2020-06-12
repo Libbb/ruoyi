@@ -38,4 +38,41 @@
 		    </if>
         </where>
     </select>
+
+
+    <select id="selectById" parameterType="int" resultMap="VehicleMap">
+        select * from vehicle where vehicle_id=#{id}
+    </select>
+
+    <insert id="vehicelAdd" parameterType="com.ruoyi.system.domain.Vehicle">
+        insert into vehicle values (null ,#{vehicleNum},#{vehicleModel},#{vehicleNumType.id},#{vehiclePrice},
+        #{vehicleLabel},#{vehicleReserve},#{vehicleCash},#{vehicleOverdue},#{vehicleState},#{vehiclePhoto},#{vehicleVin},#{vehicleEngine},
+        sysdate()
+        )
+    </insert>
+
+    <update id="vehicleUpdate" parameterType="com.ruoyi.system.domain.Vehicle">
+        update vehicle
+        <set>
+            <if test="vehicleNum != null and vehicleNum != 0">vehicle_num = #{vehicleNum},</if>
+ 			<if test="vehicleModel != null and vehicleModel != ''">vehicle_model = #{vehicleModel},</if>
+ 			<if test="vehicleNumType != null and vehicleNumType != ''">vehicleNumType = #{vehicleNumType.id},</if>
+ 			<if test="vehiclePrice != null and vehiclePrice != ''">vehicle_price = #{vehiclePrice},</if>
+ 			<if test="vehicleLabel != null and vehicleLabel != ''">vehicle_label = #{vehicleLabel},</if>
+ 			<if test="vehicleReserve != null and vehicleReserve != ''">vehicle_reserve = #{vehicleReserve},</if>
+ 			<if test="vehicleCash != null and vehicleCash != ''">vehicle_cash = #{vehicleCash},</if>
+ 			<if test="vehicleOverdue != null and vehicleOverdue != ''">vehicle_overdue = #{vehicleOverdue},</if>
+ 			<if test="vehicleState != null and vehicleState != ''">vehicle_state = #{vehicleState},</if>
+ 			<if test="vehiclePhoto != null and vehiclePhoto != ''">vehicle_photo = #{vehiclePhoto},</if>
+ 			<if test="vehicleVin != null and vehicleVin != ''">vehicle_vin = #{vehicleVin},</if>
+ 			<if test="vehicleEngine != null and vehicleEngine != ''">vehicle_engine = #{vehicleEngine},</if>
+ 			update_time = sysdate()
+        </set>
+        where vehicle_id=#{id}
+    </update>
+
+    <delete id="vahicleDelete" parameterType="int">
+        delete from vehicle where vehicle_id=#{id}
+    </delete>
+
 </mapper>

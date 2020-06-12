@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ProtocolDao">
+    <select id="selectAll" resultType="com.ruoyi.system.domain.Protocol">
+        select * from protocol
+    </select>
+
+    <select id="selectById" resultType="com.ruoyi.system.domain.Protocol">
+        select * from protocol where protocol_id=#{id}
+    </select>
+
+    <insert id="protocolAdd" parameterType="com.ruoyi.system.domain.Protocol">
+        insert into protocol values (null,#{protocolName},#{protocolContent},sysdate())
+    </insert>
+
+    <delete id="delete">
+        delete from protocol where protocol_id=#{id}
+    </delete>
+
+    <update id="protocolUpdate" parameterType="com.ruoyi.system.domain.Protocol">
+        update protocol
+         <set>
+            <if test="protocolName != null and protocolName != 0">protocol_name = #{protocolName},</if>
+ 			<if test="protocolContent != null and protocolContent != ''">protocol_content = #{protocolContent},</if>
+ 			update_time = sysdate()
+        </set>
+        where protocol_id=#{id}
+    </update>
+
+</mapper>
