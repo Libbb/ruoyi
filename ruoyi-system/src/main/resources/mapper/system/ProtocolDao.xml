@@ -12,7 +12,7 @@
     </select>
 
     <insert id="protocolAdd" parameterType="com.ruoyi.system.domain.Protocol">
-        insert into protocol values (null,#{protocolName},#{protocolContent},sysdate())
+        insert into protocol values (null,#{protocolName},#{protocolContent},#{createBy},sysdate(),null,null )
     </insert>
 
     <delete id="delete">
@@ -24,9 +24,19 @@
          <set>
             <if test="protocolName != null and protocolName != 0">protocol_name = #{protocolName},</if>
  			<if test="protocolContent != null and protocolContent != ''">protocol_content = #{protocolContent},</if>
+ 			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
  			update_time = sysdate()
         </set>
         where protocol_id=#{id}
     </update>
+
+
+
+   	<delete id="prolDeletes" parameterType="Long">
+ 		delete from protocol where protocol_id in
+ 		<foreach collection="array" item="id" open="(" separator="," close=")">
+ 			#{id}
+        </foreach>
+ 	</delete>
 
 </mapper>

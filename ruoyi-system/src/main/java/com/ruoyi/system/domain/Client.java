@@ -1,5 +1,6 @@
 package com.ruoyi.system.domain;
 
+import com.ruoyi.common.core.domain.BaseEntity;
 import lombok.*;
 
 /**
@@ -12,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Client {
+public class Client extends BaseEntity {
     /**
      * 用户名
      */
@@ -37,5 +38,7 @@ public class Client {
      * 身份证反面照
      */
     private String idPicture;
+
+
 
 }

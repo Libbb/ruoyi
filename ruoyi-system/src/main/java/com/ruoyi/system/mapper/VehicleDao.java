@@ -49,5 +49,14 @@ public interface VehicleDao {
     public int vahicleDelete(int id);
 
 
+    /**
+     * 批量删除车辆信息
+     *
+     * @param id 需要删除的数据ID
+     * @return 结果
+     */
+    public int vehicleDeletes(Long[] id);
+
+
 
 }

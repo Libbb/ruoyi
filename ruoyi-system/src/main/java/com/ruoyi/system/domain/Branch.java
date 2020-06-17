@@ -8,24 +8,20 @@ import lombok.Setter;
 
 /**
  * @author: xsy
- * @create: 2020-06-11 14:26
- * 车牌类型实体
+ * @create: 2020-06-17 16:52
  **/
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Type extends BaseEntity {
+public class Branch extends BaseEntity {
     /**
-     * 编号
+     * 网点编号
      */
     private int id;
     /**
-     * 类型名称
+     * 网点名称
      */
-    private String name;
-
-
-
+    private String branchSite;
 }

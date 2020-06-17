@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import com.ruoyi.common.annotation.DataScope;
+import com.ruoyi.common.core.text.Convert;
+import com.ruoyi.system.domain.SysUser;
 import com.ruoyi.system.domain.Vehicle;
 import com.ruoyi.system.mapper.VehicleDao;
 import com.ruoyi.system.service.VehicleService;
@@ -44,6 +46,12 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public int vahicleDelete(int id) {
         return dao.vahicleDelete(id);
+    }
+
+    @Override
+    public int vehicleDeletes(String ids) throws Exception {
+        Long[] id = Convert.toLongArray(ids);
+        return dao.vehicleDeletes(id);
     }
 
 

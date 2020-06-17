@@ -45,4 +45,13 @@ public interface ProtocolService {
      */
     public Protocol selectById(int id);
 
+    /**
+     * 批量删除车辆信息
+     *
+     * @param ids 需要删除的数据ID
+     * @return 结果
+     * @throws Exception 异常
+     */
+    public int proDeletes(String ids) throws Exception;
+
 }

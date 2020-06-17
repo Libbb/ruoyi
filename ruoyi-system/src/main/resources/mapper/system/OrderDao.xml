@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.OrderDao">
+    <resultMap type="com.ruoyi.system.domain.Order" id="OrderMap">
+        <id property="orderId" column="order_id"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="qSite" column="q_site"/>
+        <result property="hSite" column="h_site"/>
+        <result property="qTime" column="q_time"/>
+        <result property="hTime" column="h_time"/>
+        <result property="coverCharge" column="cover_charge"/>
+        <result property="veghicleMoney" column="vehicle_money"/>
+        <result property="vehicleCash" column="vehicle_cash"/>
+        <result property="vehicleOverdue" column="vehicle_overdue"/>
+        <result property="vehicleReserve" column="vehicle_reserve"/>
+        <result property="orderCost" column="order_cost"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="ifOverdue" column="if_overdue"/>
+        <association property="vehicleNumType" javaType="com.ruoyi.system.domain.Type">
+            <id column="type_id" property="id"/>
+            <result column="type_name" property="name"/>
+        </association>
+        <association property="orderStatus" javaType="com.ruoyi.system.domain.States">
+            <id column="status_id" property="statusId"/>
+            <result column="status_name" property="statusName"/>
+        </association>
+    </resultMap>
+
+
+    <select id="selectAll" parameterType="com.ruoyi.system.domain.Order" resultMap="OrderMap">
+        select * from 'order'
+        <where>
+            <if test="orderNum != null and orderNum != ''">
+                order_num like concat('%', #{orderNum}, '%')
+            </if>
+             <if test="userPhone != null and userPhone != ''">
+                user_phone like concat('%', #{userPhone}, '%')
+            </if>
+            <if test="qTime !=null and hTime !=null ">
+                and  q_time BETWEEN #{qTime} and #{hTime} AND h_time BETWEEN #{qTime} and #{hTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="OrderMap">
+        select * from 'order' where order_id=#{id}
+    </select>
+
+    <update id="orderUpdate" parameterType="com.ruoyi.system.domain.Order" >
+        update 'order'
+          <set>
+            <if test="orderStatus != null and orderStatus != 0">order_status = #{orderStatus.statusId},</if>
+ 			<if test="vehicleCash != null and vehicleCash != ''">vehicle_cash = #{vehicleCash},</if>
+ 			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+ 			update_time = sysdate()
+        </set>
+        where order_id=#{id}
+    </update>
+
+</mapper>

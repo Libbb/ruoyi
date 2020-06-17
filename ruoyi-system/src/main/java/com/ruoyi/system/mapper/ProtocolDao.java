@@ -46,4 +46,13 @@ public interface ProtocolDao {
      */
     public Protocol selectById(int id);
 
+
+    /**
+     * 批量删除协议信息
+     *
+     * @param id 需要删除的数据ID
+     * @return 结果
+     */
+    public int prolDeletes(Long[] id);
+
 }

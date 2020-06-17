@@ -1,5 +1,6 @@
 package com.ruoyi.system.domain;
 
+import com.ruoyi.common.core.domain.BaseEntity;
 import lombok.*;
 
 /**
@@ -13,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Protocol {
+public class Protocol extends BaseEntity {
     /**
      * 协议编号
      */
@@ -26,5 +27,7 @@ public class Protocol {
      * 协议内容
      */
     private String protocolContent;
+
+
 
 }

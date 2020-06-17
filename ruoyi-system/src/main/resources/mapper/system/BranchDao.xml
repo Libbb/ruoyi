@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BranchDao">
+    <resultMap type="com.ruoyi.system.domain.Branch" id="BranchMap">
+        <id property="id" column="id"/>
+        <result property="branchSite" column="branch_site"/>
+    </resultMap>
+
+
+    <select id="selectAll" resultMap="BranchMap">
+       select * from branch
+    </select>
+
+    <select id="selectById" resultMap="BranchMap">
+       select * from branch where id=#{id}
+    </select>
+
+    <update id="update" parameterType="com.ruoyi.system.domain.Branch" >
+        update branch
+          <set>
+            <if test="branchSite != null and branchSite != 0">branch_site = #{branchSite},</if>
+ 			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+ 			update_time = sysdate()
+        </set>
+        where id=#{id}
+    </update>
+
+
+    <delete id="delete" parameterType="int">
+        delete from branch where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="com.ruoyi.system.domain.Branch">
+        insert into branch values (null,#{branchSite})
+    </insert>
+
+</mapper>

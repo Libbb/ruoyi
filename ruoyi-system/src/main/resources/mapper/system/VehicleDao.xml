@@ -17,7 +17,10 @@
         <result property="vehiclePhoto" column="vehicle_photo"/>
         <result property="vehicleVin" column="vehicle_vin"/>
         <result property="vehicleEngine" column="vehicle_engine"/>
-
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
         <association property="vehicleNumType" javaType="com.ruoyi.system.domain.Type">
             <id column="type_id" property="id"/>
             <result column="type_name" property="name"/>
@@ -47,8 +50,7 @@
     <insert id="vehicelAdd" parameterType="com.ruoyi.system.domain.Vehicle">
         insert into vehicle values (null ,#{vehicleNum},#{vehicleModel},#{vehicleNumType.id},#{vehiclePrice},
         #{vehicleLabel},#{vehicleReserve},#{vehicleCash},#{vehicleOverdue},#{vehicleState},#{vehiclePhoto},#{vehicleVin},#{vehicleEngine},
-        sysdate()
-        )
+        #{createBy},sysdate(),null ,null)
     </insert>
 
     <update id="vehicleUpdate" parameterType="com.ruoyi.system.domain.Vehicle">
@@ -66,6 +68,7 @@
  			<if test="vehiclePhoto != null and vehiclePhoto != ''">vehicle_photo = #{vehiclePhoto},</if>
  			<if test="vehicleVin != null and vehicleVin != ''">vehicle_vin = #{vehicleVin},</if>
  			<if test="vehicleEngine != null and vehicleEngine != ''">vehicle_engine = #{vehicleEngine},</if>
+ 			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
  			update_time = sysdate()
         </set>
         where vehicle_id=#{id}
@@ -74,5 +77,13 @@
     <delete id="vahicleDelete" parameterType="int">
         delete from vehicle where vehicle_id=#{id}
     </delete>
+
+
+   	<delete id="vehicleDeletes" parameterType="Long">
+ 		delete from vehicle where vehicle_id in
+ 		<foreach collection="array" item="id" open="(" separator="," close=")">
+ 			#{id}
+        </foreach>
+ 	</delete>
 
 </mapper>

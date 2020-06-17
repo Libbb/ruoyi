@@ -8,10 +8,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class ClientController extends BaseController {
     @RequiresPermissions("system:client:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo selectAll(Client client) {
+    public TableDataInfo selectAll(@RequestParam(required = false) @RequestBody Client client) {
         startPage();
         List<Client> list = cs.selectAll(client);
         return getDataTable(list);
@@ -45,7 +42,7 @@ public class ClientController extends BaseController {
 
 
     /**
-     * 查看
+     * 查看用户详情
      */
     @PostMapping("/look")
     public String look(String userPhone, ModelMap mmp) {

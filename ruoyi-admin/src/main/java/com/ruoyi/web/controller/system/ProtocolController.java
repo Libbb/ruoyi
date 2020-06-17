@@ -8,10 +8,7 @@ import com.ruoyi.system.service.impl.ProtocolServiceImpl;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,7 +57,7 @@ public class ProtocolController extends BaseController {
     @RequiresPermissions("system:protocol:add")
     @PostMapping("/add")
     @ResponseBody
-    public int protocolAdd(Protocol protocol) {
+    public int protocolAdd(@RequestBody Protocol protocol) {
         return ps.protocolAdd(protocol);
     }
 
@@ -82,7 +79,7 @@ public class ProtocolController extends BaseController {
     @RequiresPermissions("system:protocol:update")
     @PostMapping("/update")
     @ResponseBody
-    public int update(Protocol protocol) {
+    public int update(@RequestBody Protocol protocol) {
         return ps.protocolUpdate(protocol);
     }
 

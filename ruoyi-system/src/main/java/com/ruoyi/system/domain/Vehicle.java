@@ -1,5 +1,6 @@
 package com.ruoyi.system.domain;
 
+import com.ruoyi.common.core.domain.BaseEntity;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Vehicle {
+public class Vehicle extends BaseEntity {
     /**
      * 车辆编号
      */
@@ -35,7 +36,7 @@ public class Vehicle {
     /**
      * 周租的价格
      */
-    private BigDecimal vehiclePrice;
+    private double vehiclePrice;
     /**
      * 车辆标签、特点
      */
@@ -44,17 +45,15 @@ public class Vehicle {
     /**
      * 车辆预定位
      */
-    private BigDecimal vehicleReserve;
+    private double vehicleReserve;
     /**
      * 车辆押金
      */
-    private BigDecimal vehicleCash;
+    private double vehicleCash;
     /**
-
-
      * 车辆逾期费
      */
-    private BigDecimal vehicleOverdue;
+    private double vehicleOverdue;
     /**
      * 车辆状态
      */
@@ -73,6 +72,8 @@ public class Vehicle {
      * 发动机号
      */
     private String vehicleEngine;
+
+
 
 
 

@@ -7,7 +7,7 @@
         select * from  `user`
         <where>
             <if test="userPhone != null and userPhone != ''">
-			    AND user_phone like concat('%', #{userPhone}, '%')
+			     user_phone like concat('%', #{userPhone}, '%')
 		    </if>
 		     <if test="userName != null and userName != ''">
 			    AND user_name like concat('%', #{userName}, '%')
@@ -17,6 +17,5 @@
 
     <select id="selectById" resultType="com.ruoyi.system.domain.Client">
         select * from `user` where user_phone=#{userPhone}
-
     </select>
 </mapper>
