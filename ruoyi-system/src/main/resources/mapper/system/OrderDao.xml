@@ -22,6 +22,8 @@
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
         <result property="ifOverdue" column="if_overdue"/>
+        <result property="remark" column="remark"/>
+
         <association property="vehicleNumType" javaType="com.ruoyi.system.domain.Type">
             <id column="type_id" property="id"/>
             <result column="type_name" property="name"/>
@@ -57,10 +59,16 @@
           <set>
             <if test="orderStatus != null and orderStatus != 0">order_status = #{orderStatus.statusId},</if>
  			<if test="vehicleCash != null and vehicleCash != ''">vehicle_cash = #{vehicleCash},</if>
+ 			<if test="ifOverdue != null and ifOverdue != ''">if_overdue = #{ifOverdue},</if>
+ 			<if test="remark != null and remark != ''">remark = #{remark},</if>
  			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
  			update_time = sysdate()
         </set>
         where order_id=#{id}
     </update>
+
+    <select id="intraDay" resultMap="OrderMap">
+        select * from `order` where   DATE_FORMAT(h_time,'%Y-%m-%d')=DATE_FORMAT(NOW(),'%Y-%m-%d') AND order_status=3
+    </select>
 
 </mapper>

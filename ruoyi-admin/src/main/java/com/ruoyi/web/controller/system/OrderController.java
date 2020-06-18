@@ -13,6 +13,7 @@ import com.ruoyi.system.service.impl.OrderServiceImpl;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.Map;
  **/
 
 @Controller
+
 @RequestMapping("/system/order")
 public class OrderController extends BaseController {
     private String prefix = "system/order";
@@ -81,6 +83,9 @@ public class OrderController extends BaseController {
         order.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(os.orderUpdate(order));
     }
+
+
+
 
 
 

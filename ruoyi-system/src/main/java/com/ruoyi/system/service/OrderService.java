@@ -33,5 +33,11 @@ public interface OrderService {
      */
     public int orderUpdate(Order order);
 
+    /**
+     * 查询当天要还车的订单
+     * @return
+     */
+    public List<Order> intraDay();
+
 
 }

@@ -1,6 +1,7 @@
 package com.ruoyi.system.service.impl;
 
 import com.ruoyi.system.domain.Order;
+import com.ruoyi.system.mapper.OrderDao;
 import com.ruoyi.system.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,21 +16,26 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
-    OrderService os;
+    OrderDao dao;
 
 
     @Override
     public List<Order> selectAll(Order order){
-        return os.selectAll(order);
+        return dao.selectAll(order);
     }
 
     @Override
     public Order selectById(int id) {
-        return os.selectById(id);
+        return dao.selectById(id);
     }
 
     @Override
     public int orderUpdate(Order order) {
-        return os.orderUpdate(order);
+        return dao.orderUpdate(order);
+    }
+
+    @Override
+    public List<Order> intraDay() {
+        return dao.intraDay();
     }
 }

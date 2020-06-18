@@ -87,6 +87,11 @@ public class Order extends BaseEntity {
      */
     private String ifOverdue;
 
+    /**
+     * 备注
+     */
+    private String remark;
+
 
 
 
