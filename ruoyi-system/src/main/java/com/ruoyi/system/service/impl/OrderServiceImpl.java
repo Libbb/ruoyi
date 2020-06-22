@@ -38,4 +38,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> intraDay() {
         return dao.intraDay();
     }
+
+    @Override
+    public List<Order> selectCon() {
+        return dao.selectCon();
+    }
 }

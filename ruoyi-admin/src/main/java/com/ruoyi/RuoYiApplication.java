@@ -12,8 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 
 
-//启动定时
-@EnableScheduling
+
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class RuoYiApplication
 {

@@ -39,5 +39,12 @@ public interface OrderService {
      */
     public List<Order> intraDay();
 
+    /**
+     * 查询出可以查询违章的订单
+     * @return
+     */
+    public List<Order> selectCon();
+
+
 
 }

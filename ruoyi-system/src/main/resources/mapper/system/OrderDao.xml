@@ -71,4 +71,9 @@
         select * from `order` where   DATE_FORMAT(h_time,'%Y-%m-%d')=DATE_FORMAT(NOW(),'%Y-%m-%d') AND order_status=3
     </select>
 
+
+    <select id="selectCon" resultMap="OrderMap">
+        select * from `order` where order_status=7 and DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_ADD(DATE_FORMAT(h_time,'%Y-%m-%d'),INTERVAL 7 DAY)
+    </select>
+
 </mapper>

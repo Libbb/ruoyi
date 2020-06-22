@@ -26,6 +26,7 @@ import java.util.List;
  **/
 
 @Controller
+@RequestMapping("/system/day")
 public class OrderDayController extends BaseController {
     private String prefix = "system/day";
 

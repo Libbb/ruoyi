@@ -9,9 +9,12 @@ import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.system.domain.Order;
 import com.ruoyi.system.domain.Vehicle;
 import com.ruoyi.system.service.ISysPostService;
+import com.ruoyi.system.service.VehicleService;
 import com.ruoyi.system.service.impl.OrderServiceImpl;
+import com.ruoyi.system.service.impl.VehicleServiceImpl;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.aspectj.weaver.ast.Or;
+import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
@@ -37,6 +40,8 @@ public class OrderController extends BaseController {
     @Autowired
     private ISysPostService postService;
 
+    @Autowired
+    private VehicleServiceImpl vs;
     @Autowired
     OrderServiceImpl os;
 
@@ -72,7 +77,7 @@ public class OrderController extends BaseController {
 
     /**
      * 修改保存
-     * @param order 订单实体
+     * @param order 订单实体  订单状态3（）
      * @return
      */
     @Log(title = "订单管理", businessType = BusinessType.UPDATE)
@@ -81,8 +86,23 @@ public class OrderController extends BaseController {
     @ResponseBody
     public AjaxResult update(@RequestBody Order order){
         order.setUpdateBy(ShiroUtils.getLoginName());
-        return toAjax(os.orderUpdate(order));
+        Vehicle vehicle=new Vehicle();
+        if (order.getOrderStatus().getStatusId()==3){
+            vehicle.setVehicleState("已出租");
+            vs.vehicleUpdate(vehicle);
+        }else if(order.getOrderStatus().getStatusId()==7){
+            vehicle.setVehicleState("未出租");
+            vs.vehicleUpdate(vehicle);
+        }
+        AjaxResult ajaxResult=new AjaxResult();
+        ajaxResult=toAjax(os.orderUpdate(order));
+        List<Order>list=os.selectCon();
+        
+
+        return ajaxResult;
     }
+
+
 
 
 
