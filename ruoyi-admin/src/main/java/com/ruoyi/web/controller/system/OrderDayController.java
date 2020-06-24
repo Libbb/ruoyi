@@ -59,7 +59,7 @@ public class OrderDayController extends BaseController {
         //循环当天还车数据
         for (int i = 0; i < list.size(); i++) {
             //拿到还车时间 转换为date格式
-            Date date = sdf.parse(list.get(i).getHTime());
+            Date date = sdf.parse(list.get(i).gethTime());
             cal.setTime(date);
             //当前还车时间加上4小时
             cal.add(Calendar.HOUR_OF_DAY, 4);
@@ -69,7 +69,7 @@ public class OrderDayController extends BaseController {
             //判断还车时间是否超过当前时间 及逾期字段是否为空
             if (cal.getTime().before(new Date()) && list.get(i).getIfOverdue() == null) {
                 //逾期费为车辆日租金一半
-                list.get(i).setVehicleOverdue(list.get(i).getVeghicleMoney() / 2);
+                list.get(i).setVehicleOverdue(list.get(i).getVehicleMoney() / 2);
                 //是否逾期自动赋值
                 list.get(i).setIfOverdue("是");
                 //订单状态赋值
@@ -83,16 +83,16 @@ public class OrderDayController extends BaseController {
                 //订单状态赋值
                 states.setStatusId(4);
                 //逾期费赋值 车日租费
-                list.get(i).setVehicleOverdue(list.get(i).getVeghicleMoney());
+                list.get(i).setVehicleOverdue(list.get(i).getVehicleMoney());
                 //拿到还车时间 转换为date格式
-                Date date2 = sdf.parse(list.get(i).getHTime());
+                Date date2 = sdf.parse(list.get(i).gethTime());
                 //备注 原还车时间 对比现还车时间 便可知道续租几天。
                 list.get(i).setRemark("原还车时间为："+date2);
                 car3.setTime(date2);
                 car3.add(Calendar.DATE, 1);
                 date2 = car3.getTime();
                 //还车时间往后延1天
-                list.get(i).setHTime(date2.toString());
+                list.get(i).sethTime(date2.toString());
                 //更改订单状态
                 os.orderUpdate(list.get(i));
             }

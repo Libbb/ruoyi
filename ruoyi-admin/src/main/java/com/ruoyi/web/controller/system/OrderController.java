@@ -1,6 +1,9 @@
 package com.ruoyi.web.controller.system;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.constant.ScheduleConstants;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
@@ -12,6 +15,9 @@ import com.ruoyi.system.service.ISysPostService;
 import com.ruoyi.system.service.VehicleService;
 import com.ruoyi.system.service.impl.OrderServiceImpl;
 import com.ruoyi.system.service.impl.VehicleServiceImpl;
+import com.ruoyi.web.controller.tool.HttpUtil;
+
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.aspectj.weaver.ast.Or;
 import org.aspectj.weaver.loadtime.Aj;
@@ -90,19 +96,33 @@ public class OrderController extends BaseController {
         if (order.getOrderStatus().getStatusId()==3){
             vehicle.setVehicleState("已出租");
             vs.vehicleUpdate(vehicle);
+
         }else if(order.getOrderStatus().getStatusId()==7){
             vehicle.setVehicleState("未出租");
             vs.vehicleUpdate(vehicle);
         }
-        AjaxResult ajaxResult=new AjaxResult();
-        ajaxResult=toAjax(os.orderUpdate(order));
-        List<Order>list=os.selectCon();
-        
+        AjaxResult ajaxResult =toAjax(os.orderUpdate(order));
+
+
 
         return ajaxResult;
     }
 
 
+    public Object timer(){
+        //拿到可以查询违章的订单数据
+        List<Order>list=os.selectCon();
+        JSONObject json;
+        for (int i=0;i<list.size();i++){
+            json=HttpUtil.sendPost(list.get(i).getVehicleNum().getVehicleNum(),list.get(i).getVehicleNum().getVehicleVin(),list.get(i).getVehicleNum().getVehicleEngine(),list.get(i).getUserPhone());
+            if(json==null){
+
+
+            }
+        }
+        return null;
+
+    }
 
 
 

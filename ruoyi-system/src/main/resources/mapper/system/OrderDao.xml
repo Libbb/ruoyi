@@ -11,8 +11,9 @@
         <result property="hSite" column="h_site"/>
         <result property="qTime" column="q_time"/>
         <result property="hTime" column="h_time"/>
+<!--        <result property="vehicleNum" column="vehicle_num"/>-->
         <result property="coverCharge" column="cover_charge"/>
-        <result property="veghicleMoney" column="vehicle_money"/>
+        <result property="vehicleMoney" column="vehicle_money"/>
         <result property="vehicleCash" column="vehicle_cash"/>
         <result property="vehicleOverdue" column="vehicle_overdue"/>
         <result property="vehicleReserve" column="vehicle_reserve"/>
@@ -23,6 +24,11 @@
         <result property="updateTime" column="update_time"/>
         <result property="ifOverdue" column="if_overdue"/>
         <result property="remark" column="remark"/>
+        <association property="vehicleNum" javaType="com.ruoyi.system.domain.Vehicle">
+            <result column="vehicle_num" property="vehicleNum"/>
+            <result column="vehicle_vin" property="vehicleVin"/>
+            <result column="vehicle_engine" property="vehicleEngine"/>
+        </association>
 
         <association property="vehicleNumType" javaType="com.ruoyi.system.domain.Type">
             <id column="type_id" property="id"/>
@@ -32,11 +38,12 @@
             <id column="status_id" property="statusId"/>
             <result column="status_name" property="statusName"/>
         </association>
+
     </resultMap>
 
 
     <select id="selectAll" parameterType="com.ruoyi.system.domain.Order" resultMap="OrderMap">
-        select * from 'order'
+        select * from `order`
         <where>
             <if test="orderNum != null and orderNum != ''">
                 order_num like concat('%', #{orderNum}, '%')
@@ -51,11 +58,11 @@
     </select>
 
     <select id="selectById" resultMap="OrderMap">
-        select * from 'order' where order_id=#{id}
+        select * from `order` where order_id=#{id}
     </select>
 
     <update id="orderUpdate" parameterType="com.ruoyi.system.domain.Order" >
-        update 'order'
+        update `order`
           <set>
             <if test="orderStatus != null and orderStatus != 0">order_status = #{orderStatus.statusId},</if>
  			<if test="vehicleCash != null and vehicleCash != ''">vehicle_cash = #{vehicleCash},</if>
@@ -64,7 +71,7 @@
  			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
  			update_time = sysdate()
         </set>
-        where order_id=#{id}
+        where order_id=#{orderId}
     </update>
 
     <select id="intraDay" resultMap="OrderMap">
@@ -73,7 +80,7 @@
 
 
     <select id="selectCon" resultMap="OrderMap">
-        select * from `order` where order_status=7 and DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_ADD(DATE_FORMAT(h_time,'%Y-%m-%d'),INTERVAL 7 DAY)
+        select o.*,v.vehicle_vin,v.vehicle_engine from `order` as o LEFT JOIN vehicle as v on o.vehicle_num = v.vehicle_num where order_status=7 and DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_ADD(DATE_FORMAT(h_time,'%Y-%m-%d'),INTERVAL 7 DAY)
     </select>
 
 </mapper>
